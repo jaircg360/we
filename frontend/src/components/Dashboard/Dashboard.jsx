@@ -9,6 +9,25 @@ import './Dashboard.css';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://wa-b6c3.onrender.com/';
 
+// Configuración global de axios
+axios.defaults.baseURL = API_BASE_URL;
+axios.defaults.timeout = 30000; // 30 segundos timeout
+
+// Interceptor para manejar errores globalmente
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('Error de API:', error);
+    if (error.code === 'ECONNABORTED') {
+      throw new Error('Timeout: El servidor está tardando demasiado en responder');
+    }
+    if (!error.response) {
+      throw new Error('Error de conexión: No se pudo conectar al servidor');
+    }
+    throw error;
+  }
+);
+
 const Dashboard = ({ user, onLogout }) => {
   const navigate = useNavigate();
   const videoRef = useRef(null);
