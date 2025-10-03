@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import ModelCharts from '../ModelCharts/ModelCharts';
 import './Dashboard.css';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://wa-b6c3.onrender.com/';
 
 const Dashboard = ({ user, onLogout }) => {
   const navigate = useNavigate();
